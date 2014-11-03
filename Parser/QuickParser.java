@@ -6,27 +6,33 @@ public class QuickParser
 
 private LinkedList<String> csv = new LinkedList<String>();
 private ArrayList<RecordObj> testList = new ArrayList<RecordObj>();
-private String filename;
+private File csvFile;
 
-public void Parse(String filename, int type) 
+
+//current returns ArrayList but can easily be converted to ObservableList
+public ArrayList Parse(File csvFile) 
 {
-  this.filename = filename;
+  this.csvFile = csvFile;
   csv = new LinkedList<String>();
   fileToArray(csv);
-  parse(csv, type);
-  //return testList; 
-  //change void Parse to ArrayList<RecordObj> Parse
+  parse(csv);
+
+  return testList;
+
 }
 
 
 
-//dumps the csv file to a linkedList
+//dumps the csv file to a linkedList of strings
 private void fileToArray(LinkedList<String> tempList)
 {
-  try
-  {
-  File csvFile = new File(filename);
-  Scanner in = new Scanner(csvFile);
+
+try
+{
+	Scanner in = new Scanner(csvFile);
+
+
+  
   
   while (in.hasNextLine() == true)
   {
@@ -39,37 +45,37 @@ private void fileToArray(LinkedList<String> tempList)
     
   }
   in.close();
-  }
-  
-  catch (FileNotFoundException e)
-  {
-  System.out.println("File not found");
-  }
 }
 
-private void parse(LinkedList<String> tempList, int type)
+catch (FileNotFoundException e)
+{
+System.out.println(e);
+}
+}
+
+
+private void parse(LinkedList<String> tempList)
 {
   int line = 0;
     while (tempList.size() > line)
     {
-    //based on inventory.csv
-       String[] tempArray = tempList.get(line).split(",");   
-       String strRFID = "", strCampus = "", strBldg = "", strLastScanedBy = "", strComments = "", strSerial = "", strHardware = "";
-       int intRm = 0, intScanYear = 0, intScanMonth = 0, intScanDay = 0, intScanHour = 0, intScanMinute = 0;
-       if (type == 1)
+    
+    		String temp = csvFile.getName().substring(0,4); //puts the first four letters of the filename into a string for identification
+    		
+    			String[] tempArray = tempList.get(line).split(",");   
+       String strRFID = "", strCampus = "", strBldg = "", strLastScanedBy = "", strComments = "", strSerial = "", strHardware = "", timeStamp = "", strPurchaseOrder = "", strServiceTag ="";
+       int intRm = 0;
+       timeStamp = "14:13:12 09:20:20:20"; //fake date, replace with real date later 
+     
+       //identifies the kind of file passed in and parses it
+       if (temp.equals("inve") == true)
        {
        strRFID = tempArray[0];
        strCampus = tempArray[1];
        strBldg = tempArray[2];
-       intRm = Integer.parseInt(tempArray[3]);
-                                    
+       intRm = Integer.parseInt(tempArray[3]);                              
        strLastScanedBy = ""; //not available yet
-       
-       intScanYear = Integer.parseInt(tempArray[5].substring(6, 10));
-       intScanMonth = Integer.parseInt(tempArray[5].substring(0, 2));
-       intScanDay = Integer.parseInt(tempArray[5].substring(3, 5));
-       intScanHour = Integer.parseInt(tempArray[5].substring(11, 13));
-       intScanMinute = Integer.parseInt(tempArray[5].substring(14, 16));                        
+                      
     
          if (tempArray.length == 7)
          {
@@ -77,72 +83,26 @@ private void parse(LinkedList<String> tempList, int type)
          }
        }
        
-       if (type == 0)
+       
+       if (temp.equals("init") == true)
        {
        strRFID = tempArray[0];
        strSerial = tempArray[1];
-       strHardware = tempArray[2];
-                                    
-       strLastScanedBy = ""; //not available yet
-       
-       intScanYear = Integer.parseInt(tempArray[3].substring(6, 10));
-       intScanMonth = Integer.parseInt(tempArray[3].substring(0, 2));
-       intScanDay = Integer.parseInt(tempArray[3].substring(3, 5));
-       intScanHour = Integer.parseInt(tempArray[3].substring(11, 13));
-       intScanMinute = Integer.parseInt(tempArray[3].substring(14, 16));                        
+       strHardware = tempArray[2];                  
+       strLastScanedBy = ""; //not available yet?
+                      
        
 
          if (tempArray.length == 5)
          {
          strComments = tempArray[4];
          }
+       
        }
-       
-      //testList.add(new RecordObj(strRFID, strCampus, strBldg, intRm, strLastScanedBy, intScanYear, intScanMonth, intScanDay, intScanHour, intScanMinute, strComments));                              
-    if (type == 1)
-       {
-       System.out.println("RFID Tag");
-       System.out.println("RFID: "+strRFID);  
-       System.out.println(); 
-       System.out.println("Location Information"); 
-       System.out.println("Campus: "+strCampus); 
-       System.out.println("Building: "+strBldg); 
-       System.out.println("Room: "+intRm); 
-       
-       System.out.println(); 
-       System.out.println("Scan information"); 
-       System.out.println("Year: "+intScanYear); 
-       System.out.println("Month: "+intScanMonth); 
-       System.out.println("Day: "+intScanDay); 
-       System.out.println("Hour: "+intScanHour); 
-       System.out.println("Minute: "+intScanMinute); 
-       System.out.println("Comments: "+strComments); 
-       System.out.println("End line "+line);
-       System.out.println();
-    }
-    
-    if (type == 0)
-    {
-      System.out.println("RFID Tag");
-      System.out.println("RFID: "+strRFID);  
-      System.out.println(); 
-      System.out.println("Hardware info"); 
-      System.out.println("Serial Number: "+strSerial); 
-      System.out.println("Model: "+strHardware); 
+     
       
-      System.out.println(); 
-      System.out.println("Scan information"); 
-      System.out.println("Year: "+intScanYear); 
-      System.out.println("Month: "+intScanMonth); 
-      System.out.println("Day: "+intScanDay); 
-      System.out.println("Hour: "+intScanHour); 
-      System.out.println("Minute: "+intScanMinute); 
-      System.out.println("Comments: "+strComments); 
-      System.out.println("End line "+line);
-      System.out.println();
-      
-      
-    }
+    	   testList.add(new RecordObj(strRFID, strCampus, strBldg, intRm, strLastScanedBy, timeStamp, strComments, strPurchaseOrder, strServiceTag));                              
+
        line++;
         
     }
@@ -155,7 +115,25 @@ private void parse(LinkedList<String> tempList, int type)
 
 public static void main (String [] args)
 {
-  QuickParser test = new QuickParser();
-  test.Parse("initial.csv", 0);
+
+	 String str = "inventory.csv";
+
+		File csvFile = new File(str);
+
+
+
+QuickParser test = new QuickParser();
+ArrayList<RecordObj> testList = test.Parse(csvFile);
+
+for (int i = 0; testList.size() > i; i++)
+{
+System.out.println(testList.get(i).getRfid());
+System.out.println(testList.get(i).getCampus());
+System.out.println(testList.get(i).getBldg());
+System.out.println(testList.get(i).getRm());
+System.out.println(testList.get(i).getComments());
+System.out.println();
+}
+	
 }
 }
