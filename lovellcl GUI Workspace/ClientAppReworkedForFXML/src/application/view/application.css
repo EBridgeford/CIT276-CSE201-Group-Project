@@ -1,0 +1,47 @@
+.red-button {
+	
+	-fx-text-fill: white; 
+	-fx-font-family: "Arial Narrow"; 
+	-fx-font-weight: bold; 
+	-fx-font-size: 19;
+	-fx-background-color: linear-gradient(#d9534f, #d43f3a); 
+
+}
+
+.red-button:hover {
+	
+	-fx-background-color: linear-gradient(#d43f3a, #d9534f); 
+
+}
+
+.red-button:pressed {
+	
+	-fx-border-style: solid;
+	-fx-border-width: 1;
+	-fx-border-color: white;
+	
+}
+
+.blue-button {
+	
+	-fx-text-fill: white; 
+	-fx-font-family: "Arial Narrow"; 
+	-fx-font-weight: bold; 
+	-fx-font-size: 19;
+	-fx-background-color: linear-gradient(#3071a9, #285e8e);
+	
+}
+
+.blue-button:hover {
+	
+	-fx-background-color: linear-gradient(#285e8e, #3071a9);
+	
+}
+
+.blue-button:pressed {
+	
+	-fx-border-style: solid;
+	-fx-border-width: 1;
+	-fx-border-color: white;
+	
+}
