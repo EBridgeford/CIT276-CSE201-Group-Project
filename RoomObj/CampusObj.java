@@ -2,6 +2,10 @@
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ *
+ * @author Bladelaven
+ */
 public class CampusObj{
    
     private StringProperty strCampus;

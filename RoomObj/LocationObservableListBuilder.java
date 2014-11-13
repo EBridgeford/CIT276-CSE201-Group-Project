@@ -1,6 +1,4 @@
-//import java.util.ArrayList;
 import java.util.List;
-//import java.util.ArrayList;
 import javafx.collections.ObservableList;
 //import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
@@ -18,7 +16,7 @@ import javax.swing.*;
  */
 public class LocationObservableListBuilder{
     
-    private LocationObj loc;                                                           //Initiate the Obj
+    private LocationObj loc;                                                   //Initiate the Obj
     
     private List<LocationObj> allLocationsList;                                //Initiate a masterlist to hold all Objs
     private List<RoomObj> rmList;                                              //Initiate a list to hold available rooms
@@ -48,64 +46,92 @@ public class LocationObservableListBuilder{
             allLocationsList.add(loc);                                         //Add the location to the master list
     }}//END addToAllLocations Method
     
-    //controls the process of filtering duplicate listings in each list
+    //Method returns the observable list of CampusObjs
+    public ObservableList getCampusList(){return campuses;}
+    
+    //Method returns the observable list of BLDGObjs
+    public ObservableList getBLDGList(){return bldgs;}
+    
+    //Method returns the observable list of RoomObjs
+    public ObservableList getRMList(){return rooms;}
+            
+    //controls the process of Initialy filtering duplicate listings out of each list
+    //after all values are added from the database
     public void buildLists(){
-        for(LocationObj loc : allLocationsList){
+        for(LocationObj loc : allLocationsList){                               //Cycle through the master list
           if(filterRooms(loc.getRM())){                                        //If the room does not exist in the room list
-              RoomObj rm = new RoomObj(loc.getRM());                           //Create a new room Obj 
-              rmList.add(rm);                                                  //Then add it to the room list
+              rmList.add(loc.rmObj());                                         //Then add it to the room list
           }  
           if(filterBLDGs(loc.getBLDG())){                                      //If the building does not exist in the building list
-              BLDGObj bldg = new BLDGObj(loc.getBLDG());                       //Create a new building Obj 
-              bldgList.add(bldg);                                              //Then add it to the building list
+              bldgList.add(loc.bldgObj());                                     //Then add it to the building list
           }
           if(filterCampuses(loc.getCampus())){                                 //If the campus does not exist in the campus list
-              CampusObj camp = new CampusObj(loc.getCampus());                 //Create a new campus Obj
-              campusList.add(camp);                                            //Then add it to the campus list
+              campusList.add(loc.campusObj());                                 //Then add it to the campus list
         }}
+        
+        //Call methods to sort each list alphabetically
         sortCampusList();
         sortBLDGList();
         sortRmList();
     }//END buildLists Method
     
-    private void clearLists(){
-        campusList.clear();                                                    //create a new observable list of campusObjs
-        bldgList.clear();                                                      //create a new observable list of BLDGObjs
-        rmList.clear();                                                        //create a new observable list of roomObjs
-        CampusObj camp = new CampusObj("All");                                 //Create a new campus Obj
-        campusList.add(camp);                                                  //Then add it to the campus list
-        BLDGObj bldg = new BLDGObj("All");                                     //Create a new building Obj 
-        bldgList.add(bldg);                                                    //Then add it to the building list
-        RoomObj rm = new RoomObj("All");                                       //Create a new room Obj 
-        rmList.add(rm);                                                        //Then add it to the room list
-        
-    }
-    
+    //This list will rebuild the observable lists based on the selection state of the dropdowns passed in    
     public void reBuildLists(String campSelection, String bldgSelection, String rmSelection){
         clearLists();
         if(((campSelection.equalsIgnoreCase("All"))&&(bldgSelection.equalsIgnoreCase("All")))&&(rmSelection.equalsIgnoreCase("All"))){
             buildLists();
         }else{
+            //Go through the MasterList and populate the lists with non duplicate objects
             for(LocationObj loc : allLocationsList){
                 //If the campus, bldg, and room match the passed in parameters or is set to all
                 if(((loc.getCampus().equalsIgnoreCase(campSelection))||(campSelection.equalsIgnoreCase("All")))&&
                         ((loc.getBLDG().equalsIgnoreCase(bldgSelection))||(bldgSelection.equalsIgnoreCase("All")))&&
                         ((loc.getRM().equalsIgnoreCase(rmSelection))||(rmSelection.equalsIgnoreCase("All")))){
                     if(filterRooms(loc.getRM())){                              //If the room does not exist in the room list
-                        RoomObj rm = new RoomObj(loc.getRM());                 //Create a new room Obj 
-                        rmList.add(rm);                                        //Then add it to the room list
+                        rmList.add(loc.rmObj());                               //Then add it to the room list
                     }
                     if(filterBLDGs(loc.getBLDG())){                            //If the building does not exist in the building list
-                        BLDGObj bldg = new BLDGObj(loc.getBLDG());             //Create a new building Obj 
-                        bldgList.add(bldg);                                    //Then add it to the building list
+                        bldgList.add(loc.bldgObj());                           //Then add it to the building list
                     }
                     if(filterCampuses(loc.getCampus())){                       //If the campus does not exist in the campus list
-                        CampusObj camp = new CampusObj(loc.getCampus());       //Create a new campus Obj
-                        campusList.add(camp);                                  //Then add it to the campus list
+                        campusList.add(loc.campusObj());                       //Then add it to the campus list
             }}}}
+        
+        //Call methods to sort the lists alphabetically
         sortCampusList();
         sortBLDGList();
         sortRmList();
+    }
+    
+    //For testing purposes This method prints lists of each observable list to the console
+    public void printObservableLists(){
+        System.out.print("\n \n Found the following table \n");
+        System.out.print(" Room:");
+        for(RoomObj rm : rooms){
+            System.out.print(" "+rm.getRm()+", ");
+        }
+        System.out.print("\n BLDG:");
+        for(BLDGObj bld : bldgs){
+            System.out.print(" "+bld.getBld()+", ");
+        }
+        System.out.print("\n Campus:");
+        for(CampusObj camp : campuses){
+            System.out.print(" "+camp.getCampus()+", ");
+    }}
+    
+    private void clearLists(){
+        //Clear the lists
+        campusList.clear();                                                    //Empty the list of campusObjs
+        bldgList.clear();                                                      //Empty the list of BLDGObjs
+        rmList.clear();                                                        //Empty the list of roomObjs
+        
+        //Add default values back to each list
+        CampusObj camp = new CampusObj("All");                                 //Create a new campus Obj
+        campusList.add(camp);                                                  //Then add it to the campus list
+        BLDGObj bldg = new BLDGObj("All");                                     //Create a new building Obj 
+        bldgList.add(bldg);                                                    //Then add it to the building list
+        RoomObj rm = new RoomObj("All");                                       //Create a new room Obj 
+        rmList.add(rm);                                                        //Then add it to the room list
     }
     
     private boolean checkDuplicateMaster(String camp, String bldg, String rm){
@@ -118,6 +144,8 @@ public class LocationObservableListBuilder{
         return true;                                                           //Otherwise return true
     }//END checkDuplicateMaster method
     
+    //This method cycles through the Room list looking for objects 
+    //with values matching the passed in string
     private boolean filterRooms(String room){
         for(RoomObj rm : rmList){                                              //Cycle through room list
             if(room.equalsIgnoreCase(rm.getRm())){                             //Look for duplicat entries in the list
@@ -126,6 +154,8 @@ public class LocationObservableListBuilder{
         return true;                                                           //Otherwise return true if the room does not exist in the list
      }//END filterRooms
     
+    //This method cycles through the Campus list looking for objects 
+    //with values matching the passed in string
     private boolean filterCampuses(String campus){
         for(CampusObj camp : campusList){                                      //Cycle through the campus list
             if(campus.equalsIgnoreCase(camp.getCampus())){                     //Look for duplicat entries in the list
@@ -134,6 +164,8 @@ public class LocationObservableListBuilder{
         return true;                                                           //Otherwise return true if the campus does not exist in the list
     }
     
+    //This method cycles through the BLDG list looking for objects 
+    //with values matching the passed in string
     private boolean filterBLDGs(String bld){
         for(BLDGObj bldg : bldgList){                                          //Cycle through the building list
             if(bld.equalsIgnoreCase(bldg.getBld())){                           //Look for duplicat entries in the list
@@ -142,7 +174,7 @@ public class LocationObservableListBuilder{
         return true;                                                           //Otherwise return true if the building does not exist in the list
     }
     
-     private void sortCampusList(){
+    private void sortCampusList(){
           CampusObj clone1;                                                    //declare a clone for the current indexed campus
           CampusObj clone2;                                                    //declare a clone for the next indexed campus
           int result = 0;                                                      // result starts in a neutral position
@@ -232,23 +264,6 @@ public class LocationObservableListBuilder{
                     index++;                                                   //increment index to track where we set and get List objects           
     }}}
     
-    //For testing purposes This method prints lists of each observable list to the console
-    public void printObservableLists(){
-        System.out.print("\n Found the following table \n");
-        System.out.print(" Room:");
-        for(RoomObj rm : rooms){
-            System.out.print(" "+rm.getRm()+", ");
-        }
-        System.out.print("\n BLDG:");
-        for(BLDGObj bld : bldgs){
-            System.out.print(" "+bld.getBld()+", ");
-        }
-        System.out.print("\n Campus:");
-        for(CampusObj camp : campuses){
-            System.out.print(" "+camp.getCampus()+", ");
-    }}
-   
-
     public static void main(String[] args) {
         String filePath = ("E:\\portableapps\\Documents\\Java 271\\WordTranslator\\pirate.txt");
         File file = null;
@@ -281,17 +296,20 @@ public class LocationObservableListBuilder{
         }//END WHILE
           fileIn.close();
           
-          loc.buildLists();                                                    //Build the list after masterlist is complete
-          loc.printObservableLists();                                          //Read values stored in all observable lists
+          loc.buildLists();                                                    //Build the list after masterlist is completed
+          loc.printObservableLists();                                          //Prints values stored in all observable lists to console
           
-          loc.clearLists();
-          loc.printObservableLists();
+          loc.clearLists();                                                    //Will clear the lists but not the master list
+          loc.printObservableLists();                                          //Prints values stored in all observable lists to console
           
-          loc.reBuildLists("All", "All", "All");
-          loc.printObservableLists();                                          //Read values stored in all observable lists
+          loc.reBuildLists("All", "All", "All");                               //Test Selection of all in all fields
+          loc.printObservableLists();                                          //Prints values stored in all observable lists to console
           
-          loc.reBuildLists("Ham", "MOS", "300");
-          loc.printObservableLists();                                          //Read values stored in all observable lists
+          loc.reBuildLists("Ham", "MOS", "300");                               //Tests selection in all drop downs
+          loc.printObservableLists();                                          //Prints values stored in all observable lists to console
+          
+          loc.reBuildLists("all", "all", "300");                               //Tests selection in just the last drop down
+          loc.printObservableLists();                                          //Prints values stored in all observable lists to console
           
           System.out.print("\n");
     }//END MAIN

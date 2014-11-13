@@ -10,7 +10,7 @@ public class RoomObj{
     private StringProperty strRm;
     
     public RoomObj(String rm){
-        this.strRm = new SimpleStringProperty(rm);                         //Initialize the room #
+        this.strRm = new SimpleStringProperty(rm);                             //Initialize the room #
     }//END INITIALIZATION
     
      //STRING SETTERS/GETTERS****************************************************************************
