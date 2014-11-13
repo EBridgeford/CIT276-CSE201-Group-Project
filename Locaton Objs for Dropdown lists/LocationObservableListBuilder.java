@@ -1,6 +1,6 @@
 import java.util.List;
+import java.util.ArrayList;
 import javafx.collections.ObservableList;
-//import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
 
 //For Testing
@@ -10,23 +10,29 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import javax.swing.*;
+
 /**
- *
- * @author Bladelaven
+ * This method builds a master list of LocationObjs from the Database then builds
+ * observable lists of RoomObjs, BLDGObjs, and CampusObjs from the master list based
+ * on selections made in the dropdown list then sorts the observable lists
+ * alphabetically and returns them to the GUI.  
+ * @author Patrick Scott Hadley
  */
 public class LocationObservableListBuilder{
     
-    private LocationObj loc;                                                   //Initiate the Obj
-    
-    private List<LocationObj> allLocationsList;                                //Initiate a masterlist to hold all Objs
-    private List<RoomObj> rmList;                                              //Initiate a list to hold available rooms
-    private List<CampusObj> campusList;                                        //Initiate a list to hold avalable campuses
-    private List<BLDGObj> bldgList;                                            //Initiate a list to hold available BLDGs
-    
-    ObservableList<RoomObj> rooms;                                             //Initiate an Observable rooms List
-    ObservableList<CampusObj> campuses;                                        //Initiate an Observable campuses List
-    ObservableList<BLDGObj> bldgs;                                             //Initiate an Observable bldge List
+    private LocationObj loc;                                                   //Instantiate the LocationObj
+    private List<LocationObj> allLocationsList;                                //Instantiate a masterlist to hold all Objs
+    private List<RoomObj> rmList;                                              //Instantiate a list to hold available rooms
+    private List<CampusObj> campusList;                                        //Instantiate a list to hold avalable campuses
+    private List<BLDGObj> bldgList;                                            //Instantiate a list to hold available BLDGs
+    ObservableList<RoomObj> rooms;                                             //Instantiate an Observable rooms List
+    ObservableList<CampusObj> campuses;                                        //Instantiate an Observable campuses List
+    ObservableList<BLDGObj> bldgs;                                             //Instantiate an Observable bldge List
 
+    /**
+     * This method Initializes the Lists to ArrayLists and then makes those lists
+     * Observable, while adding the default list values for each in the allLocationsList
+     */
     public LocationObservableListBuilder(){
        allLocationsList = new ArrayList<LocationObj>();                        //create an observable masterlist to hold all Objs
        campusList = new ArrayList<CampusObj>();                                //create a new observable list of campusObjs
@@ -38,25 +44,42 @@ public class LocationObservableListBuilder{
        bldgs = FXCollections.observableList(bldgList);                         //Make the bldgList Observable
     }//END Initiation procedure
     
-    //Method to add each new Location
+    /**
+     * This method adds each new Location to the allLocationsList when called by
+     * the DBInteractionObj and ObjConstructor.
+     * @param camp
+     * @param bldg
+     * @param rm 
+     */
     public void addToAllLocationsList(String camp,String bldg, String rm){
-        loc = new LocationObj(camp, bldg, rm);                                 //Create the new location Obj
-        
         if(checkDuplicateMaster(camp, bldg, rm)){                              //If the location does not already exist
+            loc = new LocationObj(camp, bldg, rm);                             //Create the new location Obj
             allLocationsList.add(loc);                                         //Add the location to the master list
-    }}//END addToAllLocations Method
+    }}
     
-    //Method returns the observable list of CampusObjs
+    /**
+     * This method returns the observable list of CampusObjs.
+     * @return ObservableList
+     */
     public ObservableList getCampusList(){return campuses;}
     
-    //Method returns the observable list of BLDGObjs
+    /**
+     * This method returns the observable list of BLDGObjs.
+     * @return ObservableList
+     */
     public ObservableList getBLDGList(){return bldgs;}
     
-    //Method returns the observable list of RoomObjs
+    /**
+     * This method returns the observable list of RoomObjs.
+     * @return ObservableList
+     */
     public ObservableList getRMList(){return rooms;}
             
-    //controls the process of Initialy filtering duplicate listings out of each list
-    //after all values are added from the database
+    /**
+     * This method controls the process of Initialy filtering duplicate listings 
+     * from each observable list after all values are Initially added from the 
+     * database, then calls methods to sort each observable list alphabetically.
+     */
     public void buildLists(){
         for(LocationObj loc : allLocationsList){                               //Cycle through the master list
           if(filterRooms(loc.getRM())){                                        //If the room does not exist in the room list
@@ -73,9 +96,17 @@ public class LocationObservableListBuilder{
         sortCampusList();
         sortBLDGList();
         sortRmList();
-    }//END buildLists Method
+    }
     
-    //This list will rebuild the observable lists based on the selection state of the dropdowns passed in    
+    /**
+     * This method will rebuild the observable lists based on the selection state
+     * of the dropdowns passed in as parameters by clearing the existing observable
+     * lists then filtering duplicate listings from of the lists then sorting the
+     * observable lists alphabetically. 
+     * @param campSelection
+     * @param bldgSelection
+     * @param rmSelection 
+     */   
     public void reBuildLists(String campSelection, String bldgSelection, String rmSelection){
         clearLists();
         if(((campSelection.equalsIgnoreCase("All"))&&(bldgSelection.equalsIgnoreCase("All")))&&(rmSelection.equalsIgnoreCase("All"))){
@@ -103,7 +134,9 @@ public class LocationObservableListBuilder{
         sortRmList();
     }
     
-    //For testing purposes This method prints lists of each observable list to the console
+    /**
+     * For testing purposes This method prints lists of each observable list to the console
+     */
     public void printObservableLists(){
         System.out.print("\n \n Found the following table \n");
         System.out.print(" Room:");
@@ -119,6 +152,9 @@ public class LocationObservableListBuilder{
             System.out.print(" "+camp.getCampus()+", ");
     }}
     
+    /**
+     * This method clears each observable list, then adds the default list values.
+     */
     private void clearLists(){
         //Clear the lists
         campusList.clear();                                                    //Empty the list of campusObjs
@@ -134,6 +170,16 @@ public class LocationObservableListBuilder{
         rmList.add(rm);                                                        //Then add it to the room list
     }
     
+    /**
+     * This method checks the allLocationsList to ensure a location is only entered 
+     * into the list once. If the location is found, the method immediately stops 
+     * running and returns false, other wise the entire allLocationsList is checked
+     * and a true value is returned.
+     * @param camp
+     * @param bldg
+     * @param rm
+     * @return 
+     */
     private boolean checkDuplicateMaster(String camp, String bldg, String rm){
         for(LocationObj loc : allLocationsList){                               //Iterate through the list to see is the ocation already exists
             if((camp.equalsIgnoreCase(loc.getCampus()))&&                      //If campus is the exists and
@@ -142,10 +188,16 @@ public class LocationObservableListBuilder{
                 return false;}//END IF                                         //Return false if entire location exists
         }//END FOR
         return true;                                                           //Otherwise return true
-    }//END checkDuplicateMaster method
+    }
     
-    //This method cycles through the Room list looking for objects 
-    //with values matching the passed in string
+    /**
+     * This method cycles through the Room list looking for objects with values 
+     * matching the passed in string, if a matching value is found the method 
+     * immediately stops running and returns false, other wise the entire room 
+     * List is checked and a true value is returned.
+     * @param room
+     * @return 
+     */
     private boolean filterRooms(String room){
         for(RoomObj rm : rmList){                                              //Cycle through room list
             if(room.equalsIgnoreCase(rm.getRm())){                             //Look for duplicat entries in the list
@@ -154,8 +206,14 @@ public class LocationObservableListBuilder{
         return true;                                                           //Otherwise return true if the room does not exist in the list
      }//END filterRooms
     
-    //This method cycles through the Campus list looking for objects 
-    //with values matching the passed in string
+    /**
+     * This method cycles through the campus list looking for objects with values 
+     * matching the passed in string, if a matching value is found the method 
+     * immediately stops running and returns false, other wise the entire campus 
+     * List is checked and a true value is returned.
+     * @param campus
+     * @return 
+     */
     private boolean filterCampuses(String campus){
         for(CampusObj camp : campusList){                                      //Cycle through the campus list
             if(campus.equalsIgnoreCase(camp.getCampus())){                     //Look for duplicat entries in the list
@@ -164,8 +222,14 @@ public class LocationObservableListBuilder{
         return true;                                                           //Otherwise return true if the campus does not exist in the list
     }
     
-    //This method cycles through the BLDG list looking for objects 
-    //with values matching the passed in string
+    /**
+     * This method cycles through the BLDG list looking for objects with values 
+     * matching the passed in string, if a matching value is found the method 
+     * immediately stops running and returns false, other wise the entire BLDG 
+     * List is checked and a true value is returned.
+     * @param bld
+     * @return 
+     */
     private boolean filterBLDGs(String bld){
         for(BLDGObj bldg : bldgList){                                          //Cycle through the building list
             if(bld.equalsIgnoreCase(bldg.getBld())){                           //Look for duplicat entries in the list
@@ -174,6 +238,10 @@ public class LocationObservableListBuilder{
         return true;                                                           //Otherwise return true if the building does not exist in the list
     }
     
+    /**
+     * This method sorts the campusList alphabetically while leaving the 
+     * default value of "All" at the top of the list.
+     */
     private void sortCampusList(){
           CampusObj clone1;                                                    //declare a clone for the current indexed campus
           CampusObj clone2;                                                    //declare a clone for the next indexed campus
@@ -203,7 +271,11 @@ public class LocationObservableListBuilder{
                     }} 
                     index++;                                                   //increment index to track where we set and get List objects           
     }}}
-     
+    
+    /**
+     * This method sorts the BLDG List alphabetically while leaving the 
+     * default value of "All" at the top of the list.
+     */
     private void sortBLDGList(){
           BLDGObj clone1;                                                      //declare a clone for the current indexed bldg
           BLDGObj clone2;                                                      //declare a clone for the next indexed bldg
@@ -234,6 +306,10 @@ public class LocationObservableListBuilder{
                     index++;                                                   //increment index to track where we set and get List objects           
     }}}
     
+    /**
+     * This method sorts the room List alphabetically while leaving the 
+     * default value of "All" at the top of the list.
+     */
     private void sortRmList(){
           RoomObj clone1;                                                      //declare a clone for the current indexed room
           RoomObj clone2;                                                      //declare a clone for the next indexed room
@@ -264,6 +340,10 @@ public class LocationObservableListBuilder{
                     index++;                                                   //increment index to track where we set and get List objects           
     }}}
     
+    /**
+     * This method is used for testing purposes.
+     * @param args 
+     */
     public static void main(String[] args) {
         String filePath = ("E:\\portableapps\\Documents\\Java 271\\WordTranslator\\pirate.txt");
         File file = null;
