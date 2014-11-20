@@ -21,7 +21,6 @@ import javafx.collections.FXCollections;
  * @author Patrick Scott Hadley
  */
 public class RecordObjListBuilder{
-    private DBConnection db;
     private RecordObj rec;                                                     //Initiate the RecordObj
     private List<RecordObj> recordList;                                        //Initiate a list to hold all recordObjs
     ObservableList<RecordObj> records;                                         //Initiate an Observable records List
@@ -32,7 +31,6 @@ public class RecordObjListBuilder{
      * @param 
      */
    public RecordObjListBuilder(){
-       db = new DBConnection();
        recordList = new ArrayList<RecordObj>();                                //create a new list of RecordObjs
        records = FXCollections.observableList(recordList);                     //Make the recordList Observable
    }
@@ -59,30 +57,9 @@ public class RecordObjListBuilder{
    }
    
    /**
-    * This method will call clearList() to start a new list of RecordObjs then
-    * forward the passed in search parameters to the dataBaseInteractionsObj so 
-    * that as results are returned the dataBaseInteractionsObj will call 
-    * addRecord() to populate an observable list of RecordObjs, that list is 
-    * then returned. Non specified search parameters should be sent in as "*".
-    * 
-    * @param strCampus
-    * @param strBuilding
-    * @param strRoom
-    * @param strPO
-    * @return ObservableList of RecordObjs
-    */
-   public ObservableList search(String strCampus, String strBuilding, String strRoom, String strPO){
-       this.clearList();
-       this.db.generalQuery(strCampus, strBuilding, strRoom, strPO);
-       return this.records;
-   }
-   
-   /**
-    * This method accepts the current and new values of a record and then passes 
-    * those values to the DBConnection obj which communicates the values to the 
-    * DB, the database finds the existing record and then updates that record
-    * The method then calls updateInList() in order to update the RecordObj and
-    * then returns the new observable list.
+    * This method accepts the current and new values of a record and then finds 
+    * the existing record and then updates that record and then returns the new 
+    * observable list.
     * @param currentRFID
     * @param currentPO
     * @param currentServiceTag
@@ -102,64 +79,64 @@ public class RecordObjListBuilder{
    public ObservableList updateRecord(String currentRFID, String currentPO, String currentServiceTag, String currentLastScanedBy, String currentTimeStamp, String currentComments, String currentLocation,
            String newRFID, String newPO, String newServiceTag, String newLastScanedBy, String newTimeStamp, String newComments, String newLocation){
        
-       this.db.updateRecord(currentRFID, currentPO, currentServiceTag, currentLastScanedBy, currentTimeStamp, currentComments, /*room*/currentLocation.substring(8, 11), /*bldg*/currentLocation.substring(4, 7), /*campus*/currentLocation.substring(0, 3),
-               newRFID, newPO, newServiceTag, newLastScanedBy, newTimeStamp, newComments, /*room*/newLocation.substring(8, 11), /*bldg*/newLocation.substring(4, 7), /*campus*/newLocation.substring(0, 3));
-       
-       this.updateInList(currentRFID, currentPO, currentServiceTag, currentLastScanedBy, currentTimeStamp, currentComments, currentLocation,
-               newRFID, newPO, newServiceTag, newComments, newLocation);
-       
-       return this.records;
-   }
-   
-   //NOTE: This method may not be needed
-   /**
-    * This method will search for the existing RecordObj and update the values 
-    * to the new values so they are displayed in the observable list.
-    * @param currentRFID
-    * @param currentPO
-    * @param currentServiceTag
-    * @param currentLastScanedBy
-    * @param currentTimeStamp
-    * @param currentComments
-    * @param currentLocation
-    * @param newRFID
-    * @param newPO
-    * @param newServiceTag
-    * @param newComments
-    * @param newLocation 
-    */
-   private void updateInList(String currentRFID, String currentPO, String currentServiceTag, String currentLastScanedBy, String currentTimeStamp, String currentComments, String currentLocation,
-           String newRFID, String newPO, String newServiceTag, String newComments, String newLocation){
-       
-       for(RecordObj rec : recordList){                                        //Iterate through the list to find the recordObj to update
-            if(currentRFID.equalsIgnoreCase(rec.getCampus())){
-                if(currentPO.equalsIgnoreCase(rec.getPurchaseOrder())){
-                    if(currentServiceTag.equalsIgnoreCase(rec.getServiceTag())){
-                        if(currentLastScanedBy.equalsIgnoreCase(rec.getLastScanedBy())){
-                            if(currentTimeStamp.equalsIgnoreCase(rec.getTimeStamp())){
-                                if(currentComments.equalsIgnoreCase(rec.getComments())){
-                                    if(currentLocation.equalsIgnoreCase(rec.getLocation())){
+        for(RecordObj record : recordList){                                        //Iterate through the list to find the recordObj to update
+            if(currentRFID.equalsIgnoreCase(record.getRfid())){
+                if(currentPO.equalsIgnoreCase(record.getPurchaseOrder())){
+                    if(currentServiceTag.equalsIgnoreCase(record.getServiceTag())){
+                        if(currentLastScanedBy.equalsIgnoreCase(record.getLastScanedBy())){
+                            if(currentTimeStamp.equalsIgnoreCase(record.getTimeStamp())){
+                                if(currentComments.equalsIgnoreCase(record.getComments())){
+                                    if(currentLocation.equalsIgnoreCase(record.getLocation())){
                                         rec.setRfid(newRFID);
                                         rec.setPurchaseOrder(newPO);
                                         rec.setServiceTag(newServiceTag);
                                         rec.setComments(newComments);
                                         rec.setLocation(newLocation);
-                                        return;
+                                        return this.records; 
         }}}}}}}}//END FOR
+       
+       return this.records;
    }
    
    /**
-    * This Method clears the current queried list of records.
-    * @param 
+     * For testing purposes This method prints a list of all records in the observable list to the console
+     */
+    public void printObservableLists(){
+        System.out.print("\n \n Found the following table \n");
+        int x = 1;
+        System.out.print(" Row |      RFID#       | PurchaseOrder | ServiceTag# |  Location   | Last Scanned on  | Last Scanned by  | Comments  \n");
+        for(RecordObj rec : records){
+            System.out.print(String.format("%4d",x)+" | "+String.format("%16s", rec.getRfid())+" | "+String.format("%13s",rec.getPurchaseOrder())+" | "+
+                    String.format("%11s",rec.getServiceTag())+" | "+String.format("%11s",rec.getLocation())+" | "+String.format("%16s",rec.getTimeStamp())+" | "+
+                    String.format("%16s",rec.getLastScanedBy())+" | "+rec.getComments()+"\n");
+        }}
+   
+   /**
+    * This method returns an observable list
+    * @return ObservableList
     */
-   private void clearList(){
-       this.recordList.clear();
-   }
+   public ObservableList getRecords(){return this.records;}
 
     /**
+     * This method tests basic functionality
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        RecordObjListBuilder list = new RecordObjListBuilder();
+        List<RecordObj> recordList = new ArrayList<RecordObj>(); 
+        ObservableList<RecordObj> obList = FXCollections.observableList(recordList);       
+        
+        list.addRecord("RFID_G1234567890", "PO_1234567890", "ST_12345678", "Hadleyps", "11/17/2014 19:51", "These are my comments!!!", "300", "MOS", "HAM");
+        list.printObservableLists();
+        
+        obList = list.getRecords();
+        
+        for(RecordObj rec : obList){
+            obList = list.updateRecord(rec.getRfid(), rec.getPurchaseOrder(), rec.getServiceTag(), rec.getLastScanedBy(), rec.getTimeStamp(), rec.getComments(), rec.getLocation(),
+           "RFID_S0987654321", "PO_0987654321", "ST_87654321", "Bilbo Baggins", "11/17/2014 20:12", "New Comment", "HAM/MOS/500");
+        }
+        list.printObservableLists();
+        
     }
     
 }
