@@ -1,4 +1,16 @@
+/*
+ * *******************************************************************************************************
+ * ********  **           ***      ******   ******** **           ***      ***     *** ******** ***    *** 
+ * **    *** **          **  *     **   **  ***      **          **  *      ***   ***  ***      ****   ***
+ * ********  **         **    *    **    ** ******** **         **    *      *** ***   ******** ** **  *** 
+ * ********  **        *********   **    ** ******** **        *********      *****    ******** **  ** *** 
+ * **    *** *******  ***********  **   **  ***      *******  ***********      ***     ***      **   ***** 
+ * ********  ******* **         ** ******   ******** ******* **         **      *      ******** **    **** 
+ * *******************************************************************************************************
+ * *********************************************** BLADELAVEN STUDIOS ************************************
 
+ */
+package devicetrackerpro;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -56,7 +68,7 @@ public class LocationObj{
      
      /**
       * This method sets the BLDG object's string value.
-      * @param String
+      * @param str
       */
      public void setBLDG(String str){this.bldg.setBld(str);}             
      
@@ -80,7 +92,7 @@ public class LocationObj{
      
      /**
       * This method sets the string value of the RoomObj.
-      * @param String 
+      * @param str
       */
      public void setRM(String str){this.room.setRm(str);}                
      

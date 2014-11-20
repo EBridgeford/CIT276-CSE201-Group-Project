@@ -11,60 +11,60 @@
 
  */
 package devicetrackerpro;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
- * This object holds the value of the campus
+ * This object holds the value of the building
  * @author Patrick Scott Hadley
  */
-public class CampusObj{
+public class BLDGObj{
    
-    private StringProperty strCampus;
+    private StringProperty strBld; 
     
     /**
-     * This method Instantiates the campus object
-     * @param campus 
+     * This method initializes the BLDG object.
+     * @param bld
      */
-    public CampusObj(String campus){
-        this.strCampus = new SimpleStringProperty(campus);                  
+    public BLDGObj(String bld){
+        this.strBld = new SimpleStringProperty(bld);                        
     }//END INITIALIZATION
     
      /**
-      * This method returns the string value of the campus object.
-      * @return String Campus
+      * This method returns the string value of the BLDG object
+      * @return String
       */
-     public final String getCampus(){return this.strCampus.get();}      
-             
-     /**
-      * This method sets the campus properties string value.
-      * @param string
-      */
-     public final void setCampus(String str){this.strCampus.set(str);}  
+     public final String getBld(){return this.strBld.get();}       
      
      /**
-      * This method returns the campus object's property value
-      * @return simpleStringProperty
+      * This method sets the string value of the BLDG object
+      * @param str
       */
-     public StringProperty campusProperty(){return this.strCampus;}         
+     public final void setBld(String str){this.strBld.set(str);}     
      
+     /**
+      * This method returns the property value of the BLDG object.
+      * @return SimpleStringProperty
+      */
+     public StringProperty bldProperty(){return this.strBld;}               
+
      /**
       * This method is used for testing.
       * @param args 
       */
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         
         //Initialization test
-        CampusObj room = new CampusObj("HAM");
+        BLDGObj room = new BLDGObj("MOS");
         
         //Test getters
-        System.out.print("Location : "+room.getCampus()+"\n");
+        System.out.print("Location : "+room.getBld()+"\n");
         
         //Test setters
-        room.setCampus("MUM");
+        room.setBld("JST");
         
         //Test getters again
-        System.out.print("Location : "+room.getCampus()+"\n");
+        System.out.print("Location : "+room.getBld()+"\n");
         
     }//END MAIN
 }//END CLASS

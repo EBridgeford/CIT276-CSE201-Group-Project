@@ -12,12 +12,11 @@
  */
 package devicetrackerpro;
 import java.util.List;
-import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
 //For Testing
-import java.io.File;
+import java.io.File; 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Scanner;

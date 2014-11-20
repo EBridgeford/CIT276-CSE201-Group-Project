@@ -28,7 +28,6 @@ public class RecordObjListBuilder{
     /**
      * This method constructs the RecordObjListBuilder by instantiating global 
      * variables.
-     * @param 
      */
    public RecordObjListBuilder(){
        recordList = new ArrayList<RecordObj>();                                //create a new list of RecordObjs
@@ -92,8 +91,23 @@ public class RecordObjListBuilder{
                                         rec.setServiceTag(newServiceTag);
                                         rec.setComments(newComments);
                                         rec.setLocation(newLocation);
-                                        return this.records; 
-        }}}}}}}}//END FOR
+                                        System.out.print(" Found the record to update! \n Updating!! \n\n");
+                                        return this.records;
+                                    }else
+                                        System.out.print("\n "+record.getLocation()+" Does not match "+ newLocation+"\n");
+                                }else
+                                    System.out.print("\n "+record.getComments()+" Does not match "+newComments+"\n");
+                            }else
+                                System.out.print("\n "+record.getTimeStamp()+" Does not match "+newTimeStamp+"\n");
+                        }else
+                            System.out.print("\n "+record.getLastScanedBy()+" Does not match "+newLastScanedBy+"\n");
+                    }else
+                        System.out.print("\n "+record.getServiceTag()+" Does not match "+currentServiceTag+"\n");
+                }else
+                    System.out.print("\n "+record.getPurchaseOrder()+" Does not match "+newPO+"\n");
+            }else
+                System.out.print("\n "+record.getRfid()+" Does not match "+newRFID+"\n");
+        }//END FOR
        
        return this.records;
    }
@@ -102,14 +116,17 @@ public class RecordObjListBuilder{
      * For testing purposes This method prints a list of all records in the observable list to the console
      */
     public void printObservableLists(){
-        System.out.print("\n \n Found the following table \n");
+        System.out.print(" Found the following table: \n");
         int x = 1;
         System.out.print(" Row |      RFID#       | PurchaseOrder | ServiceTag# |  Location   | Last Scanned on  | Last Scanned by  | Comments  \n");
         for(RecordObj rec : records){
             System.out.print(String.format("%4d",x)+" | "+String.format("%16s", rec.getRfid())+" | "+String.format("%13s",rec.getPurchaseOrder())+" | "+
                     String.format("%11s",rec.getServiceTag())+" | "+String.format("%11s",rec.getLocation())+" | "+String.format("%16s",rec.getTimeStamp())+" | "+
                     String.format("%16s",rec.getLastScanedBy())+" | "+rec.getComments()+"\n");
-        }}
+            x++;
+        }
+        System.out.print("\n");
+    }
    
    /**
     * This method returns an observable list
@@ -118,7 +135,8 @@ public class RecordObjListBuilder{
    public ObservableList getRecords(){return this.records;}
 
     /**
-     * This method tests basic functionality
+     * This method tests basic functionality of each method
+     * The testing file is located in the same folder as this object and is called testData
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -135,6 +153,12 @@ public class RecordObjListBuilder{
             obList = list.updateRecord(rec.getRfid(), rec.getPurchaseOrder(), rec.getServiceTag(), rec.getLastScanedBy(), rec.getTimeStamp(), rec.getComments(), rec.getLocation(),
            "RFID_S0987654321", "PO_0987654321", "ST_87654321", "Bilbo Baggins", "11/17/2014 20:12", "New Comment", "HAM/MOS/500");
         }
+        list.printObservableLists();
+        
+        list.addRecord("RFID_", "PO_", "ST_", "you", "11/17/2014 19:51", "comment", "300", "MOS", "HAM");
+        
+        list.updateRecord("RFID_", "PO_", "ST_", "you", "11/17/2014 19:51", "comment", "HAM/MOS/300",
+                "RFID_G1234567890", "PO_1234567890", "ST_12345678", "Hadleyps", "11/17/2014 19:51", "These are my comments!!!", "HAM/MOS/500");
         list.printObservableLists();
         
     }

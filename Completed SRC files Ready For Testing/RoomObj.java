@@ -33,7 +33,6 @@ public class RoomObj{
 
      /**
       * This method returns the string value of the room object.
-      * @param
       * @return string value of room
       */
      public final String getRm(){return this.strRm.get();}                     // Returns the properties value
@@ -46,7 +45,6 @@ public class RoomObj{
      
      /**
      * This method returns the room property
-     * @param 
      * @return simpleStringProperty
      */
      public StringProperty rmProperty(){return this.strRm;}                    // Returns the property itself

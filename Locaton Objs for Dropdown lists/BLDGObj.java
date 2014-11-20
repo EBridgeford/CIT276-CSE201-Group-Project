@@ -1,3 +1,16 @@
+/*
+ * *******************************************************************************************************
+ * ********  **           ***      ******   ******** **           ***      ***     *** ******** ***    *** 
+ * **    *** **          **  *     **   **  ***      **          **  *      ***   ***  ***      ****   ***
+ * ********  **         **    *    **    ** ******** **         **    *      *** ***   ******** ** **  *** 
+ * ********  **        *********   **    ** ******** **        *********      *****    ******** **  ** *** 
+ * **    *** *******  ***********  **   **  ***      *******  ***********      ***     ***      **   ***** 
+ * ********  ******* **         ** ******   ******** ******* **         **      *      ******** **    **** 
+ * *******************************************************************************************************
+ * *********************************************** BLADELAVEN STUDIOS ************************************
+
+ */
+package devicetrackerpro;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -11,7 +24,7 @@ public class BLDGObj{
     
     /**
      * This method initializes the BLDG object.
-     * @param bldg 
+     * @param bld
      */
     public BLDGObj(String bld){
         this.strBld = new SimpleStringProperty(bld);                        
@@ -25,7 +38,7 @@ public class BLDGObj{
      
      /**
       * This method sets the string value of the BLDG object
-      * @param String
+      * @param str
       */
      public final void setBld(String str){this.strBld.set(str);}     
      
