@@ -1,0 +1,78 @@
+package application.util;
+
+import application.model.RecordObj;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+// Ignore this class. I am using it in the GUI to display dummy data. It will be deleted after the GUI is hooked up to real data. 
+public class FileLoader {
+
+	public static ObservableList<RecordObj> data = FXCollections.observableArrayList(
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!"), 
+			new RecordObj("111111111", "hadleyps       ", "10/27/2014 19:20", "Old!")
+			);
+	
+}
