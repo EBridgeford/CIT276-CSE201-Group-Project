@@ -1,29 +1,32 @@
 //William Wallace 
 //CSE 201
-//The purpose of this class is to establish a connection with a MySQL RFID database. 
-
+//The purpose of this class is to establish a connection with a MySQL RFID database. All exceptions are thrown 
+//to the controller of the GUI. See Github documentation for details. 
+//Awaiting stored procedures from DB team for methods update & add record. Expected implementation 11/24/14
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+
 
 public class DBConnection 
 
 {
 	//Private constant class variables
 	
-	// JDBC driver name and database URL
+	// JDBC driver name and database URL - DB is behind university firewall. Utilize VPN to access DB
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	private static final String DB_URL = "jdbc:mysql://blueridge.it.muohio.edu/rfiddatabase";
 
-	//Database credentials
+	//Database credentials - Credentials will change for final release
 	private static final String USER = "javaaccess";
 	private static final String PASS = "Password99";
 	
-	//JDBC connection
+	//JDBC connection - The connection as a global variable allows the connection to remain open while during the gui 
+	// execution 
 	private static Connection conn = null; 
 	   
 	//Constructor for DBConnection 
@@ -44,7 +47,30 @@ public void Connect() throws ClassNotFoundException, SQLException
 		      //System.out.println("Connected!  ");
 	   }
 	  	
-	 
+void addPairingRecord(String serialNumber, String rfid, String scanUser, String date, String model, String equipmentType, String poNumber) throws SQLException
+{
+	Statement stmt = null;
+    
+	//Create SQL command  
+  String query = "call InsertComputerInformation('"+serialNumber+"','"+rfid+"','"+scanUser+"','"+date+"','"+model+"','"+equipmentType+"','"+poNumber+"');"; 
+  System.out.println(query);
+  stmt = conn.createStatement();
+  stmt.executeQuery(query);
+
+}
+
+void addRecordLocation(String room, String campus, String building, String rfid, String poNumber, String serviceTag, String notes, String scannerName, String date) throws SQLException
+{
+	Statement stmt = null;
+    
+	//Create SQL command  
+  String query = "call InsertComputerLocation('"+room+"','"+campus+"','"+building+"','"+rfid+"','"+poNumber+"','"+serviceTag+"','"+notes+"','"+scannerName+"','"+date+"');"; 
+  System.out.println(query);
+  stmt = conn.createStatement();
+  stmt.executeQuery(query);
+
+}
+
 // GeneralQuery. This will be the main work horse of the application. Accepts campus, building, room and po as parameters 
 // Or any combination of the parameters (with the exception of just room)  	
 public RecordObjListBuilder generalQuery (String campus, String building, String room, String PO) throws SQLException
@@ -53,9 +79,13 @@ public RecordObjListBuilder generalQuery (String campus, String building, String
 	
 	Statement stmt = null;
       
+		//Create SQL command  
       String query = "call GetComputerInformation('"+campus+"','"+building+"','"+room+"','"+PO+"');"; 
       System.out.println(query);
+      
       stmt = conn.createStatement();
+      
+      //Execute Query
       ResultSet rs = stmt.executeQuery(query);
       if(rs == null)
     	  System.out.println("Failed");
@@ -67,21 +97,16 @@ public RecordObjListBuilder generalQuery (String campus, String building, String
     		 //Get data from result
     		 //This sets the variables according to the table column from which they are derived.  
     		 String rfid = rs.getString("RFID");
-    		 String sN = rs.getString("SerialNumber");
-    		 String rName = rs.getString("RoomName");
-    		 String bName = rs.getString("BuildingName");
-    		 String cName = rs.getString("CampusName");
-    		 String sName = rs.getString("ScannerName");
+    		 String serialNumber = rs.getString("SerialNumber");
+    		 String roomName = rs.getString("RoomName");
+    		 String buildingName = rs.getString("BuildingName");
+    		 String campusName = rs.getString("CampusName");
+    		 String scannerName = rs.getString("ScannerName");//Awaiting changes to recordOBJ
     		 String notes = rs.getString("Notes");
     		 String poNumber = rs.getString("PONumber");
-    		 String sDate = rs.getString("ScannedDate");
-    		 
-    		 //Print output for testing
-//    		 System.out.println( rfid + " " + sN + " " + rName + " " + bName + " "+ cName + " "+  
-//    				 sName + " " + notes + " " + poNumber + " " + sTag + " " + sDate);
-    	     
+    		 String scanDate = rs.getString("ScannedDate"); //Format of date returning needs to be verified
     		 //Send information to listBuilder to add the record
-            listBuilder.addRecord(rfid, poNumber, sN, sDate,"10/27/2014 19:20", notes, rName, bName, cName);
+            listBuilder.addRecord(rfid, poNumber, serialNumber, scanDate,"10/27/2014 19:20", notes, roomName, buildingName, campusName);
            }
       }
       return listBuilder;
@@ -141,12 +166,12 @@ public static void main(String[] args) throws SQLException
 {
 	RecordObjListBuilder r;
 	LocationObservableListBuilder l = new LocationObservableListBuilder(); 
-	
 	try
 	{
 	
 	DBConnection dB = new DBConnection(); 
 	r = dB.generalQuery("", "", "", "");
+	//dB.addPairingRecord("", "", "", " ", "", "", "");
 	r.printObservableLists();
 	l = dB.getLocationData();
 	l.printObservableLists();
@@ -156,7 +181,7 @@ public static void main(String[] args) throws SQLException
 	catch(SQLException se)
 	{
 	   //Handle errors for JDBC
-	   se.printStackTrace();
+		 se.printStackTrace(); 
 	}
 	catch(Exception e)
 	{
