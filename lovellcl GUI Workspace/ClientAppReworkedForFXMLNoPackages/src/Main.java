@@ -1,11 +1,8 @@
-package application;
+
 
 import java.io.IOException;
 import java.net.URL;
 
-import application.model.RecordObj;
-import application.util.FileLoader;
-import application.view.RootLayout;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +16,7 @@ public class Main extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private final URL ROOT_LAYOUT_FILE_NAME = getClass().getResource("view/RootLayout.fxml");
+    private final URL ROOT_LAYOUT_FILE_NAME = getClass().getResource("RootLayout.fxml");
     
     @Override
     public void start(Stage primaryStage) {
@@ -44,7 +41,7 @@ public class Main extends Application {
             // Show the scene containing the root layout.
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
             Scene scene = new Scene(rootLayout,screenBounds.getWidth()/1.2,screenBounds.getHeight()/1.2);
-            scene.getStylesheets().add(getClass().getResource("view/application.css").toExternalForm());
+            //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
             

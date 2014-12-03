@@ -1,4 +1,3 @@
-package application.view;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -6,16 +5,6 @@ import java.util.Queue;
 
 import com.sun.javafx.collections.SetAdapterChange;
 
-import application.Main;
-import application.model.BLDGObj;
-import application.model.CampusObj;
-import application.model.RecordObj;
-import application.model.RoomObj;
-import application.util.AlertBox;
-import application.util.DBConnection;
-import application.util.LocationObservableListBuilder;
-import application.util.QuickParser;
-import application.util.RecordObjListBuilder;
 import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -54,7 +43,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
-import application.util.ConfirmationBox;
 
 public class RootLayout {
 

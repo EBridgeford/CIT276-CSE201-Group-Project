@@ -1,6 +1,3 @@
-package application.util;
-
-import application.model.RecordObj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
