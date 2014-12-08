@@ -1,3 +1,8 @@
+/**
+ * @author      Eric Bridgeford
+//CSE 201 Software Engineering
+ */
+
 import java.io.*;
 import java.util.*;
 
@@ -31,7 +36,10 @@ public class QuickParser
 
 
 
-	//dumps the csv file to a linkedList of strings
+	/**
+	 * Reads the file passed in to a linked list of strings
+	 * @param tempList Linked list that the file is read in to
+	 */
 	private void fileToArray(LinkedList<String> tempList)
 	{
 
@@ -61,6 +69,10 @@ public class QuickParser
 		}
 	}
 
+	/**
+	 * Parses out the strings stored in the linked list. This populates an arraylist of RecordObj
+	 * @param tempList Linked list that is read from
+	 */
 
 	private void parse(LinkedList<String> tempList)
 	{
@@ -68,7 +80,7 @@ public class QuickParser
 		while (tempList.size() > line)
 		{
 
-			String temp = csvFile.getName().substring(0,4); //puts the first four letters of the filename into a string for identification
+			//String temp = csvFile.getName().substring(0,4); //puts the first four letters of the filename into a string for identification
 
 			String[] tempArray = tempList.get(line).split(",");   
 			String strRFID = "", strLocation = "", strLastScanedBy = "", comments = "", strSerial = "", strPO = "", timeStamp = "", strPurchaseOrder = "", strServiceTag ="";
@@ -145,6 +157,7 @@ public class QuickParser
 
 		QuickParser test = new QuickParser();
 		ObservableList<RecordObj> testList = test.Parse(csvFile,testEnum);
+		//QuickWriter test3 = new QuickWriter(testList); //Quick writer test code
 
 		if (testEnum == FileType.INVENTORY)
 		{
