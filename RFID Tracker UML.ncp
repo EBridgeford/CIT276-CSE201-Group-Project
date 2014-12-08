@@ -25,15 +25,36 @@
       <Entity type="Class">
         <Name>Controller</Name>
         <Access>Internal</Access>
-        <Location left="517" top="369" />
-        <Size width="471" height="293" />
+        <Location left="517" top="280" />
+        <Size width="471" height="434" />
         <Collapsed>False</Collapsed>
+        <Member type="Method">private void initialize()</Member>
+        <Member type="Method">public void changed()</Member>
+        <Member type="Method">public void changed()</Member>
+        <Member type="Method">private void changeCurrentTabScreen()</Member>
+        <Member type="Method">private void comboBoxHandler(ActionEvent e)</Member>
+        <Member type="Method">private void loadDropDownInfo()</Member>
+        <Member type="Method">private void clearSearchFieldHandler()</Member>
+        <Member type="Method">private void getDataFromDatabase()</Member>
+        <Member type="Method">private void importCSVFile()</Member>
+        <Member type="Method">private void updateFilteredData()</Member>
+        <Member type="Method">private void openFile(File file)</Member>
+        <Member type="Method">private static void configureFileChooser(FileChooser fileChooser)</Member>
+        <Member type="Method">private void changeToScanTable()</Member>
+        <Member type="Method">private void changeToSearchTable()</Member>
+        <Member type="Method">private void setNotificationAnimation(String labelText, Color color)</Member>
+        <Member type="Method">public void tableCellEditCommitHandler()</Member>
+        <Member type="Method">public void setMainApp(Main main)</Member>
+        <Member type="Method">private void initializeData()</Member>
+        <Member type="Method">public TableRow&lt;RecordObj&gt; call(TableView&lt;RecordObj&gt; tableView)</Member>
+        <Member type="Method">public void handle()</Member>
+        <Member type="Method">private void clearTableSelection()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>DataBase</Name>
         <Access>Public</Access>
-        <Location left="717" top="1501" />
+        <Location left="799" top="1790" />
         <Size width="955" height="145" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public String queryAllLocations()</Member>
@@ -61,7 +82,7 @@
       <Entity type="Structure">
         <Name>LocationObservableListBuilder</Name>
         <Access>Public</Access>
-        <Location left="1196" top="440" />
+        <Location left="1280" top="441" />
         <Size width="442" height="366" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public void LocationObservableListBuilder()</Member>
@@ -207,11 +228,12 @@
       <Entity type="Structure">
         <Name>DBInteractionOBJ</Name>
         <Access>Public</Access>
-        <Location left="600" top="1031" />
-        <Size width="495" height="213" />
+        <Location left="600" top="1482" />
+        <Size width="981" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public void DBConnection()</Member>
-        <Member type="Method">public void Connect()</Member>
+        <Member type="Method">void addPairingRecord(String serialNumber, String rfid, String scanUser, String date, String model, String equipmentType, String poNumber)</Member>
+        <Member type="Method">void addRecordLocation(String room, String campus, String building, String rfid, String poNumber, String serviceTag, String notes, String scannerName, String date)</Member>
         <Member type="Method">public RecordObjListBuilder generalQuery(String campus, String building, String room, String PO)</Member>
         <Member type="Method">public LocationObservableListBuilder getLocationData()</Member>
         <Member type="Method">private void isConnected()</Member>
@@ -221,7 +243,7 @@
       <Entity type="Structure">
         <Name>RecordObjListBuilder</Name>
         <Access>Public</Access>
-        <Location left="10" top="1677" />
+        <Location left="10" top="1972" />
         <Size width="1774" height="182" />
         <Collapsed>False</Collapsed>
         <Member type="Method">public void RecordObjListBuilder()</Member>
@@ -232,19 +254,9 @@
         <Member type="Method">public static void main(String[] args)</Member>
       </Entity>
       <Entity type="Comment">
-        <Text>Adding Save and Update Functions</Text>
-        <Location left="600" top="1031" />
-        <Size width="135" height="50" />
-      </Entity>
-      <Entity type="Comment">
         <Text>Scope Boundary of Software Team</Text>
         <Location left="126" top="319" />
         <Size width="199" height="50" />
-      </Entity>
-      <Entity type="Comment">
-        <Text>Assumed to be competent</Text>
-        <Location left="517" top="54" />
-        <Size width="96" height="50" />
       </Entity>
       <Entity type="Comment">
         <Text>Under construction</Text>
@@ -257,13 +269,8 @@
         <Size width="121" height="50" />
       </Entity>
       <Entity type="Comment">
-        <Text>All things are subject to repeated change.</Text>
-        <Location left="1307" top="58" />
-        <Size width="210" height="50" />
-      </Entity>
-      <Entity type="Comment">
         <Text>Scope Boundary of Software Team</Text>
-        <Location left="717" top="1501" />
+        <Location left="799" top="1790" />
         <Size width="209" height="50" />
       </Entity>
       <Entity type="Comment">
@@ -272,25 +279,41 @@
         <Size width="162" height="50" />
       </Entity>
       <Entity type="Interface">
-        <Name>GUI</Name>
+        <Name>Main</Name>
         <Access>Public</Access>
         <Location left="643" top="54" />
-        <Size width="575" height="251" />
+        <Size width="575" height="160" />
         <Collapsed>False</Collapsed>
+        <Member type="Method">void start()</Member>
+        <Member type="Method">void initRootLayout()</Member>
+        <Member type="Method">Stage getPrimaryStage()</Member>
+        <Member type="Method">ObservableList&lt;RecordObj&gt; getInitialData()</Member>
+        <Member type="Method">void main()</Member>
       </Entity>
-      <Entity type="Comment">
-        <Text>Adding a Save To File Function</Text>
-        <Location left="10" top="459" />
-        <Size width="104" height="50" />
+      <Entity type="Structure">
+        <Name>AlertBox</Name>
+        <Access>Public</Access>
+        <Location left="1400" top="147" />
+        <Size width="238" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static void show(String message, String title)</Member>
+        <Member type="Method">private static void btnYesClicked()</Member>
       </Entity>
-      <Entity type="Comment">
-        <Text>May Need to add DBID Getters/Setters</Text>
-        <Location left="10" top="694" />
-        <Size width="160" height="50" />
+      <Entity type="Structure">
+        <Name>ConfirmationBox</Name>
+        <Access>Public</Access>
+        <Location left="1400" top="10" />
+        <Size width="403" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public static boolean show(String message, String title, String textYes, String textNo)</Member>
+        <Member type="Method">private static void btnYesClicked()</Member>
+        <Member type="Method">private static void btnNoClicked()</Member>
       </Entity>
     </Entities>
     <Relationships>
       <Relationship type="Dependency" first="1" second="0">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -333,8 +356,6 @@
         <EndMultiplicity>*</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="5" second="0">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -347,6 +368,8 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="11" second="5">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -355,6 +378,8 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="11" second="1">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -402,6 +427,8 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="12" second="11">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -428,11 +455,11 @@
       </Relationship>
       <Relationship type="Association" first="2" second="6">
         <Label>Gets 3 Observable Location Lists &amp; Manages Object</Label>
-        <StartOrientation>Vertical</StartOrientation>
+        <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>901</X>
-          <Y>711</Y>
+          <X>1021</X>
+          <Y>688</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
@@ -451,6 +478,8 @@
         <AssociationType>Aggregation</AssociationType>
       </Relationship>
       <Relationship type="Dependency" first="7" second="6">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -459,18 +488,22 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="6" second="2">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>1157</X>
-          <Y>630</Y>
+          <X>1241</X>
+          <Y>631</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>1013</X>
-          <Y>631</Y>
+          <Y>630</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="11" second="2">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -479,6 +512,8 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="8" second="7">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -491,6 +526,8 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="9" second="7">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -503,6 +540,8 @@
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="10" second="7">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -558,6 +597,8 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="0" second="4">
+        <Label>
+        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -575,11 +616,13 @@
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="12" second="14">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
           <X>174</X>
-          <Y>1652</Y>
+          <Y>1947</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="14" second="12">
@@ -588,7 +631,7 @@
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>200</X>
-          <Y>1652</Y>
+          <Y>1947</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
@@ -596,27 +639,23 @@
         <EndMultiplicity>*</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="13" second="2">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>759</X>
-          <Y>1006</Y>
+          <Y>1457</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>759</X>
-          <Y>749</Y>
+          <Y>801</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Dependency" first="13" second="3">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>806</X>
-          <Y>1278</Y>
+          <Y>1732</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="13" second="3">
@@ -625,7 +664,7 @@
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>841</X>
-          <Y>1281</Y>
+          <Y>1735</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
@@ -633,13 +672,11 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="14" second="13">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>621</X>
-          <Y>1652</Y>
+          <Y>1947</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="13" second="14">
@@ -648,7 +685,7 @@
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
           <X>649</X>
-          <Y>1652</Y>
+          <Y>1947</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
@@ -656,17 +693,15 @@
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="14" second="2">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>527</X>
-          <Y>1652</Y>
+          <Y>1947</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>527</X>
-          <Y>701</Y>
+          <Y>753</Y>
         </BendPoint>
       </Relationship>
       <Relationship type="Association" first="2" second="14">
@@ -675,11 +710,11 @@
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>547</X>
-          <Y>757</Y>
+          <Y>809</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>547</X>
-          <Y>710</Y>
+          <Y>1005</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
@@ -701,11 +736,11 @@
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>1015</X>
-          <Y>1004</Y>
+          <Y>1455</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>1167</X>
-          <Y>791</Y>
+          <X>1251</X>
+          <Y>792</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
@@ -713,22 +748,18 @@
         <EndMultiplicity>1</EndMultiplicity>
       </Relationship>
       <Relationship type="Dependency" first="6" second="13">
-        <Label>
-        </Label>
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>1162</X>
-          <Y>754</Y>
+          <X>1246</X>
+          <Y>755</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>984</X>
-          <Y>1002</Y>
+          <Y>1453</Y>
         </BendPoint>
       </Relationship>
-      <Relationship type="Dependency" first="23" second="4">
-        <Label>
-        </Label>
+      <Relationship type="Dependency" first="20" second="4">
         <StartOrientation>Horizontal</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -736,7 +767,7 @@
           <Y>124</Y>
         </BendPoint>
       </Relationship>
-      <Relationship type="Association" first="4" second="23">
+      <Relationship type="Association" first="4" second="20">
         <Label>Interacts With</Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
@@ -749,28 +780,68 @@
         <StartMultiplicity>1..*</StartMultiplicity>
         <EndMultiplicity>1..*</EndMultiplicity>
       </Relationship>
-      <Relationship type="Dependency" first="2" second="23">
-        <Label>
-        </Label>
+      <Relationship type="Dependency" first="2" second="20">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>671</X>
-          <Y>344</Y>
+          <Y>255</Y>
         </BendPoint>
       </Relationship>
-      <Relationship type="Association" first="23" second="2">
+      <Relationship type="Association" first="20" second="2">
         <Label>Creates and Manages</Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
           <X>707</X>
-          <Y>344</Y>
+          <Y>255</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Aggregation</AssociationType>
         <StartMultiplicity>1</StartMultiplicity>
         <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Dependency" first="20" second="21">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1252</X>
+          <Y>203</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="20" second="21">
+        <Label>Creates</Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1252</X>
+          <Y>177</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Dependency" first="20" second="22">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="20" second="22">
+        <Label>Creates</Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1246</X>
+          <Y>82</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>*</EndMultiplicity>
       </Relationship>
     </Relationships>
   </ProjectItem>
